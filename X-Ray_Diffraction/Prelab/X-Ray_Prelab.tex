@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-.3in}
+\setlength{\textheight}{9in}
+\pagestyle{empty}
+
+\usepackage[super]{nth}
+\usepackage{amsmath}
+\usepackage{csquotes}
+\usepackage{physics}
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}
+
+\begin{document}
+
+\begin{center}
+{\Large X-Ray Diffraction Prelab} \\[.3in]
+{\large Bj\"{o}rn Sumner} \\
+{26 Feb 2018}
+\end{center}
+
+\section*{Prelab}
+
+
+The main goal of this lab is to learn how to use x-rays to determine the structure of crystals.  
+
+We will first setup an optical monochrometer so that we can control the frequency of the light source incident upon the sample.  This will be important so we can isolate the wave vectors in the diffraction from the sample.  As per the equation for the electric field strength in the lab manual, we rely on elastic scattering to simplify the 2D Fourier Transforms ($\omega$ \& $k_0$) and obtain measures for the Fourier coefficients.
+
+We can test this elastic scattering hypothesis by measuring the angular variation in intensity at a given wavelength.  I expect the peaks will not be delta functions, but instead gaussians themselves, as the incident radiation will not be purely monochromatic, but instead have a gaussian frequency distribution.  Since the fourier transform of a gaussian is a gaussian, this spread will indicate the variance in both how `non-monochromatic' the incident radiation is, as well as a measure of the inelasticity of the atom-radiation interaction.
+
+We can suppose that the peaks are centered around the delta functions, and use these peaks to perform our angular measurements.
+
+Whenever we have a peak in the intensity of the refracted light, we know that the change in wave vector 
+\begin{align}
+	\textbf{K} = \textbf{k}+\textbf{k}_0 \label{eq:recip_lattice}
+\end{align} must also be a vector of the reciprocal lattice, $\textbf{R}$\cite{AandM_SS}.  If the scattering is elastic, then the magnitude of the incident and scattered wave vectors must be equal, and $k^2 = k_0^2$. Dotting equation \ref{eq:recip_lattice} with itself:
+
+\begin{align}
+	\textbf{k}\cdot\textbf{k} &= \left(\textbf{K}-\textbf{k}_0\right)\cdot\left(\textbf{K}-\textbf{k}_0\right)\nonumber\\
+	k^2 &= K^2 + k_0^2 - 2 \textbf{K} \cdot \textbf{k}_0 \nonumber\\
+	K^2 &= 2 \textbf{K} \cdot \textbf{k}_0 \nonumber\\
+	&= 2 K K_0 \cos(\frac{\pi - \varphi}{2}) \nonumber\\
+	& \implies K = 2k_0 \sin(\frac{\varphi}{2}) \label{eq:scatter}
+\end{align}
+
+We know from Bravais' Theorem that there are only 14 possible distinct lattices.  By determining the relative sizes of the lattice vectors of the various possible lattices, we can compare the scattering angle.  Equation \ref{eq:scatter} shows that the smallest scattering angles  come from the smallest lattice vectors.  By taking the ratio of lattice vectors relative to the smallest one, we get:
+
+\begin{align}
+	\frac{K_i}{K_1} &= \frac{R_i}{R_1} =  \frac{\sin(\frac{\varphi_i}{2})}{\sin(\frac{\varphi_1}{2})} \label{eq:ratio}
+\end{align}
+
+So by comparing the ratio of scattering angles, we can determine which lattice vectors are present in the crystal.
+
+
+\bibliographystyle{unsrt}
+\bibliography{x-ray_references}
+
+\end{document}
