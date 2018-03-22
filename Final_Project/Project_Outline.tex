@@ -26,21 +26,69 @@
 \section*{Absorption imaging of atoms in a magneto-optical trap}
 
 \subsection*{Overview}
-For our final project, we propose to design and implement an absorption imaging setup to measure the temperature of atoms in a magneto-optical trap (MOT).  We will use the current setup for the atom trapping experiment and combine it with the laser spectroscopy equipment to create a probe beam for atoms in the MOT.  This probe beam will be collected and analyzed by either a photodetector or a camera, depending on available equipment.
+For our final project, we propose to design and implement an absorption imaging setup to measure the temperature of atoms in a magneto-optical trap (MOT).  We will use the current setup for the atom trapping experiment and combine it with the laser spectroscopy equipment to create a probe beam for atoms in the MOT.  This probe beam will be collected and analyzed by either a photodetector or a camera, depending on available equipment.  The goal will be to determine the expansion of the atoms in the trap to get an estimate of the velocities of the atoms.  From this, we can determine the temperature of the trap.  Thus, it will be important that we accurately measure the size of the cloud at precise times.
 
 \subsection*{Detail}
 
 There are several components that will require construction in order to implement our experiment:
 
-We will need to construct a means of shutting off the magnetic field as rapidly as possible.
+\begin{itemize}
+	\item Construct a means of shutting off the magnetic field, simultaneously with the lasers, and as rapidly as possible.
+	\subitem Can we put a probe with sufficient resolution near the MOT to determine how quickly the magnetic field disappears?
+	\item Align laser spectroscopy beam through the center of the MOT.
+	\item Setup lenses to focus image on camera.
+	\item Program camera to collect images with appropriate exposure and interval
+	\item Write program to analyze image
+	\subitem Is absorption spectroscopy a destructive process?
+	\subitem If so, do we need to make several MOTs in succession, then image them at successively later times?
+	\subitem Once we have our images, how does MOT expansion rate relate to temperature?	
+\end{itemize}
 
-We will need to 
+\subsubsection*{Confinement Release}
 
+	While in the trap, the atoms are continually being slowed through absorption of photons based on their motion relative to the trap center.  The magnetic field results in a splitting of the hyperfine lines (Zeeman effect) that increases with distance from the center of the trap, but is zero at the trap center.  This means the atoms furthest from the center will be the most likely to absorb a photon (from which direction is based on the polarization of the light).  The combination of the light with the magnetic fields results in a steady state temperature of the collection.  In order to measure this temperature, we must understand what the velocities of the atoms are.  We can do this by watching the ballistic expansion of the atoms.  However, in order to do this, we must shut off the laser light so we do not exert any forces on the expanding atoms.
+	
+	However, in absorption imaging, we will be using the same frequency light as the trap, so we will also need to shut down the magnetic fields so we do not get a greater probability of absorbing light far from the center of the trap (especially since we are trying to measure the velocities of these atoms far from the center).  While it should be straightforward to shut off the trapping lasers rapidly, the magnetic field will not only require a rapid shutoff of the current running through the coils, but possibly also a means of eliminating the magnetic field resulting from eddy currents in nearby metal.  This secondary magnetic field strength and duration will need to be measured to determine if it will have a significant effect on the experiment.
+	
+\subsubsection*{Imaging Laser Alignment}
+	
+	We will need to align the laser from the laser spectroscopy table through the center of the trap so as to provide illumination of the atoms after release from confinement.  Once confinement is released, the atoms will no longer be in their excited states, and will be able to absorb light at the trapping frequency.  The laser light will thus be absorbed where atoms are, and we will have a shadow on the other side of the atoms that we can image.
+	
+	In the spectroscopy lab, we tuned the laser light to a resonant region of the Rubidium structure, which should suffice for the purposes of imaging the atoms.  However, we may wish to further dial in this frequency to ensure our imaging beam is optimized for absorption.
+	
+	Once we have the beam passing through the center of the MOT, we will want to expand the beam, as the unexpanded beam will most likely not be large enough to image the entire collection of atoms.  We can place a beam expander prior to the MOT chamber, and then use lenses to focus the image (shadow of the atoms) onto the camera.  Furthermore, since absorption imagery is destructive, we will only want to expose the atoms to light when we wish to image them.  Thus, we will need some sort of control to only allow light through on command, in conjunction with the camera beginning its collection.
+	
+\subsubsection*{Data Collection}
+	
+	The camera will need to be setup to have the proper exposure time and interval between shots.  The exposure time will be based off the intensity of the laser light on the CCD chip, which we will need to determine.  Furthermore, we will want our image exposure time to be small relative to the atomic velocities.  We will need to attenuate our image beam to attain the appropriate intensity.
+	
+	Once this is complete, we will need to tell the camera when to begin collecting the data.  If we choose to follow the procedure outlined above, we will need to fire the camera immediately prior to exposing the atoms to the imaging laser, so we imaging the atoms at the moment of illumination instead of after the light has had time to significantly impact the motion of the atoms.
+	
+\subsubsection*{Image Analysis}
+	
+	As described above, we will need to collect images in intervals after shutting off the trap.  We will need to make each MOT as similar as possible so that each collection of atoms is at the same temperature prior to release.  To minimize systematic error, we should make these intervals after shutoff random.  
+	
+	This will allow us to get an idea of the ballistic velocities of the cloud.  Once we have these velocities, we should be able to characterize the temperature of the cloud.  This theory work will need to be done relatively early in the experiment, as many of these features will provide initial values for the parameters of the experiment mentioned above.
+	
+	In order to do this, we will need to calibrate the distance on the camera to the physical distance.  This will be a function of the lensing system in place and the distances from the MOT to the lenses and camera system.
+	
+	One possible way of providing an independent measure of the time since confinement release is to determine where on a fixed camera the confined atoms are located.  Once this location is determined, we can then compare the center of the atoms upon imaging to this location.  Once released from the trap, the atoms should enter free fall, and this center should fall a distance given by $d = -\frac{1}{2}g t^2$.  Measuring the distance will thus provide an independent estimate of time since release.
+	
+\subsubsection*{Experiment}
 
+	Once we are able to determine the temperature of the atoms, we will need to adjust various parameters of the trap.  By comparing these parameters to the atom temperature, we expect to be able to optimize this parameter to produce the minimum possible temperature.  The most obvious parameter to adjust is the intensity of the trapping beams, but it might also be interesting to see if the strength of the magnetic field, the polarization angles, or the atomic density (as adjusted by the ion pump) have any effect on temperature.
+	
+\subsection*{Required Equipment}
 
-
-
- and its intensity measured.  Our goal is to provide a measure of the temperature of atoms within the MOT by analyzing the expansion of the atoms in time once confinement is released.  This will allow us to optimize the MOT and attempt to realize the Doppler cooling limit by observing the temperature as various parameters of the MOT, such as trapping laser intensity, are adjusted.
-
+\begin{itemize}
+	\item Camera sensitive to $\approx$ 780 nm light with rapid refresh rate (shutter speed) and with computer interface/control.
+	\item Magnetic field strength probe (with sufficiently high time resolution)
+	\item Assorted electronics equipment for the construction of timing circuits, magnetic field shutoff switch, etc.
+	\item All equipment from atom trapping and laser spectroscopy lab.
+	\item Assorted lenses/mirrors for imaging.
+	\item High speed shutter for imaging beam.
+\end{itemize}
+	
+	
 
 \end{document}
