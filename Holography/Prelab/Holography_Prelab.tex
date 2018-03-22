@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-.3in}
+\setlength{\textheight}{9in}
+\pagestyle{empty}
+
+\usepackage[super]{nth}
+\usepackage{amsmath}
+\usepackage{csquotes}
+\usepackage{physics}
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}
+
+\begin{document}
+
+\begin{center}
+{\Large Holography Prelab} \\[.3in]
+{\large Bj\"{o}rn Sumner} \\
+{13 March 2018}
+\end{center}
+
+\section*{Prelab}
+
+\subsection*{Question 1}
+In the Gaussian laser beam lab at the beginning of the semester, we measured the width and intensity of a He-Ne laser.  We know that the beams will diverge from their beam waist, but since we want to know the power of the laser, the product of the intensity by the area should be constant (conservation of energy).  In the lab, we fitted a curve that had 
+\begin{align*}
+	\text{I}_{max} &= 7.79 \times 10^4 \frac{\text{W}}{\text{m}^2}\\
+	\text{w}_0 &= 2.04 \times 10^{-4} \text{m}
+\end{align*}
+Since $P=\int I dA$, we can get a reasonable approximation of the laser power by
+
+\begin{align*}
+	P &\approx \frac{1}{2}I_{max}A\\
+	&\approx \frac{1}{2} I_{max} \pi \left(\frac{w_0}{2}\right)^2\\
+	&\approx \frac{1}{2} \left(7.79 \times 10^4 \frac{\text{W}}{\text{m}^2}\right) \pi \left(\frac{2.04 \times 10^{-4} \text{m}}{2}\right)^2\\
+	&\approx 1.3 \text{ mW}
+\end{align*} 
+
+However, this is about as far as we can get.  We need to know what the area illuminated by the beam 40 cm from the focus is.  Since our beams are gaussian, we can approximate this by using the far field approximation, which states that far from the beam waist (at the focus), the angle subtended by the laser is given by the numerical aperture:
+\begin{align*}
+	\text{NA} &= n \sin(\theta)
+\end{align*}  However, the numerical aperture used in microscopy is unsuited for lasers, so we relate the NA by the beam waist:
+\begin{align*}
+	\text{NA} &= \frac{\lambda_0}{\pi w_0}
+\end{align*} 
+So to find the angle of the beam far from the focus compared to the Rayleigh length (and 40 cm is a reasonable approximation for this), and recognizing that n$\approx$ 1, we get 
+\begin{align*}
+	\sin(\theta) &\approx \tan(\theta) \approx \frac{\lambda_0}{\pi w_0}
+\end{align*}
+
+So we require knowledge of the beam waist to properly characterize the spread of the beam.  If we knew where the focus of the beam was, we would be able to estimate this by knowing the approximate size of the beam prior to entering the objective, and then using similar triangles sharing a point at the focus.  Without knowledge of either the waist or its location on the optical axis, we are unable to characterize the spread of the beam properly, and only being told the magnification is not sufficient information to determine either of these factors.
+
+However, lets assume we know what the spread is.  If the half-angle of the spread is given by the above formula, then we can find the area of the laser on the plate $x= $40 cm away:
+$$
+A = \pi x^2\tan^2(\theta)
+$$
+and the intensity times the time duration $\Delta t$ gives the energy per unit area:
+
+\begin{align*}
+	I \Delta t &= \frac{P \Delta t}{A} \equiv \text{exposure}\\
+	&\implies \Delta t = \text{exposure} \frac{A}{P}\\
+	&\implies \Delta t = 60 \frac{\text{mJ}}{\text{cm}^2} \frac{ 1600 \pi \text{cm}^2 \left(\frac{\lambda_0}{\pi w_0}\right)^2}{1.3 \text{ mW}}\\
+	&\implies \Delta t = 23506 \left(\frac{\lambda_0}{w_0}\right)^2\text{ s}
+\end{align*}
+
+\subsection{Question 2}
+
+For P$_R$(y,z) = (0,-40), P$_O$(y,z) = (-10,-15):
+
+The \emph{orthoscopic} image is a virtual image that appears to be at the original object location.  Thus, in this case, the orthoscopic image is located at (-10,-15).
+
+The \emph{pseudoscopic} image location can be found at P$_D$ using the equations below for $n =$ +1:
+
+\begin{align*}
+	\frac{1}{z_D} &= \frac{n+1}{z_R} - \frac{n}{z_O} &y_D &= n\frac{z_D}{z_O}y_O\\
+	&= \frac{2}{-40} - \frac{1}{-15} & &\\
+	&= \frac{1}{60} & &=\frac{60}{-15}(-10)\\
+	& & &=40
+\end{align*}
+
+So we find P$_D$(y,z) = (40,60).  Since z$_D$ is positive, it is a real image.
+
+\emph{Note: The above calculations were in units of centimeters.  I neglected them for clarity.}
+\end{document}
