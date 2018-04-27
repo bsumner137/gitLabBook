@@ -37,9 +37,10 @@ with nidaqmx.Task() as task:
         t2 = (int(round(time.time()*1000)))
         tdata = np.array(data)
         tdata -= np.mean(tdata)
-        ffto = np.fft.fft(tdata)
-        ffto = np.abs(ffto)
-        ffto = ffto[0:(nfft/2+1)]
+##        ffto = np.fft.fft(tdata)
+##        ffto = np.abs(ffto)
+##        ffto = ffto[0:(nfft/2+1)]
+        ffto = np.fft.fftshift(np.fft.fft(tdata))
 
         ax1.clear()
         ax2.clear()
