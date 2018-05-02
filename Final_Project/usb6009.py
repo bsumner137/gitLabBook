@@ -16,13 +16,14 @@ class usb6009:
         self.data = np.array([])
         self.time = 0 #calibration factor.  Multiply by desired time (in seconds) to get number of pulses
         self.duration = 0
+        self.CHANNEL = [ np.array([[0],[0]]), np.array([[0],[1]]), np.array([[1],[0]]), np.array([[1],[1]]) ]
         
     def add(self, channel_ID):
-    	"""
-    	Specify the name of the device and the desired channel for output
-    	"""
+        """
+        Specify the name of the device and the desired channel for output
+        """
         self.task.ao_channels.add_ao_voltage_chan(channel_ID, "", 0.0, 5.0)
-
+        
     def calibrate(self):
     	"""
     	generates continuous pulses of 1000 counts.  Asks user to input average time of pulse
@@ -42,26 +43,23 @@ class usb6009:
 
     def build(self, on_off_sequence, time_sequence):
         """
-	on_off_sequence is an array stating whether the signal is to be on or off.  It should be a
-	2D array, with the first element the output of channel one, and the second ...
-	i.e. np.array([[1,0,1,1,0],[0,0,1,0,1]])
-		
-	time_sequence is a numpy array with the amount of time (in ms) for each row of the on_off_sequence.  It should be a 
-	1D array with the same number of elements as one column of the on_off_sequence
-	"""
-	if self.time ==0:
-		print("Perform Calibration")
-	else:
-		counts = self.time*time_sequence*1e-3
-		self.duration = np.sum(time_sequence)*1e-3
-		d1 = np.array([])
-		d2 = np.array([])
-	
-		for i in np.arange(len(t)):
-			d1 = np.concatenate((d1,on_off_sequence[0][i]* np.ones(counts[i])))
-			d2 = np.concatenate((d2,on_off_sequence[1][i]* np.ones(counts[i])))
-		
-		self.data = 5*np.array([d1,d2])
+        on_off_sequence is an array stating which signal (after processing by demux) should be on.
+        This array should be a 1D array of ints: i.e. [1,3,2,4,1,2]
+
+        time_sequence is a numpy array with the amount of time (in ms) for each row of the on_off_sequence.
+        It should be a 1D array with the same number of elements as one column of the on_off_sequence
+        """
+        if self.time ==0:
+            print("Perform Calibration")
+        else:
+            counts = self.time*time_sequence*1e-3
+            self.duration = np.sum(time_sequence)*1e-3
+            d1 = np.array([])
+            
+            for i in np.arange(len(channel_sequence)):
+                d1 = np.concatenate((d1,self.CHANNEL[channel_sequence[i]]* np.ones(counts[i])))
+
+            self.data = 5*d1
 	
     def BlowIt(self):
     	"""
@@ -78,9 +76,9 @@ class usb6009:
     	
     	
     	
-ao_card = usb6009()
-ao_card.add("Dev2/ao0")
-ao_card.add("Dev2/ao1")
-ao_card.calibrate()
-ao_card.build(np.array([[0,1,0,1],[1,0,0,1]]), np.array([1,.5,1,.5,1,.5,1,1]))
-ao_card.BlowIt()
+##ao_card = usb6009()
+##ao_card.add("Dev2/ao0")
+##ao_card.add("Dev2/ao1")
+##ao_card.calibrate()
+##ao_card.build(np.array([[0,1,0,1],[1,0,0,1]]), np.array([1,.5,1,.5,1,.5,1,1]))
+##ao_card.BlowIt()
