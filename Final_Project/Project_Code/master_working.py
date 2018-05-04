@@ -4,6 +4,7 @@ import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 import cc2
+import imageio
 
 num_img = 160
 dir_name = 'run4'
@@ -154,11 +155,13 @@ fluor_image = img_fluor.squeeze()
 
 fluor_zoom = img_fluor.squeeze()[120:237,200:430]
 
-np.savetxt('{}/{}_{}_fluor'.format(dir_name, date, dir_name), fluor_image, fmt = '%f')
-np.savetxt('{}/{}_{}_fluor_zoom'.format(dir_name, date, dir_name), fluor_zoom, fmt = '%f')
+np.savetxt('{}_{}_fluor.txt'.format( date, dir_name), fluor_image, fmt = 'uint8')
+#np.savetxt('{}/{}_{}_fluor_zoom'.format(dir_name, date, dir_name), fluor_zoom, fmt = '%f')
+np.savetxt('{}_{}_light.txt'.format( date, dir_name), img_light.squeeze(), fmt = 'uint8')
+np.savetxt('{}_{}_dark.txt'.format( date, dir_name), img_dark.squeeze(), fmt = 'uint8')
 
 for i in np.arange(len(imgs_atom)):
-    np.savetxt('{}/{}_{}_{:02.0f}'.format(dir_name, date, dir_name, i+1), imgs_atom[i].squeeze(), fmt = '%f')
+    np.savetxt('{}/{}_{}_{:03.0f}.txt'.format(dir_name, date, dir_name, i+1), imgs_atom[i].squeeze(), fmt = 'uint8')
     
 
 for i in np.arange(num_img):
